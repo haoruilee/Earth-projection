@@ -14,5 +14,11 @@ You can use .sln to create the file (only for vs2010+)
 
 - [x] points.txt: Ten points
 
+[Project](https://github.com/users/haoruilee/projects/2)
+
+
 ## Contributers
+
+[@MAyang38](https://github.com/MAyang38)
+
 
