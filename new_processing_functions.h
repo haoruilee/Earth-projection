@@ -341,3 +341,47 @@ double b_5_K(double B_f)
 }
 
 //////////////////////////正算开始
+//和1975几乎一样
+
+double forward_x_K(double B_double_com, double rho_double_com, double a_0, double a_4, double a_6, double l, double  N, double B)
+{
+	//x的正算公式(代入K参数后)
+	return ((6367558.4969 * B_double_com / rho_double_com) - (a_0 - (0.5 + (a_4 + a_6 * pow(l, 2)) * pow(l, 2)) * pow(l, 2) * N) * cos(B) * sin(B));
+}
+
+double forward_y_K(double l, double a_3, double a_5, double B)
+{
+	//y的正算公式(代入K参数后)
+	return ((1 + (a_3 + a_5 * pow(l, 2)) * pow(l, 2)) * l * N * cos(B))
+}
+
+//正算x,y所用函数
+double N_K(double B)
+{
+	return (6399698.902 - (21562.267 - (108.996 - 0.603 * pow(cos(B), 2)) * pow(B, 2)) * pow(B, 2));
+}
+
+double a_0_K(double B)
+{
+	return (32140.404 - ((135.3302 - (0.7092 - 0.004 * pow(cos(B), 2)) * pow(cos(B), 2)) * pow(cos(B), 2)));
+}
+
+double a_4_K(double B)
+{
+	return ((0.25 + 0.002 52 * pow(cos(B), 2)) * pow(cos(B), 2) - 0.041 66);
+}
+
+double a_6_K(double B)
+{
+	return ((0.166 * pow(cos(B), 2) - 0.084) * pow(cos(B), 2));
+}
+
+double a_3_K(double B)
+{
+	return ((0.3333333 + 0.001123 * pow(cos(B), 2)) * pow(cos(B), 2) - 0.1666667);
+}
+
+double a_5_K(double B)
+{
+	return (0.0083- (0.1667 - (0.1968 + 0.004*pow(cos(B), 2))* pow(cos(B), 2)) * pow(cos(B), 2));
+}
