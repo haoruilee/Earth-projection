@@ -9,10 +9,10 @@ You can use .sln to create the file (only for vs2010+)
 
 ## How it established
 
-- [ ] functions.h: Gaussion functions, with 1975 and K  parameters
+- [x] functions.h: Gaussion functions, with 1975 and K  parameters
 - [ ] main.cpp: Main functions
 
-- [x] points.txt: Ten points
+- [ ] points.txt: Ten points
 
 [Project](https://github.com/users/haoruilee/projects/2)
 
