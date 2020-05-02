@@ -41,7 +41,7 @@ double a_0_1975(double B)
 
 double a_4_1975(double B)
 {
-	return ((0.25 + 0.002 53 * pow(cos(B),2)) * pow(cos(B),2) - 0.041 67);
+	return ((0.25 + 0.00253 * pow(cos(B),2)) * pow(cos(B),2) - 0.041 67);
 }
 
 double a_6_1975(double B)
@@ -69,7 +69,7 @@ double backward_B_1975(double B_f, double b_4, double Z, double b_2, double rho_
 double backward_l_1975(double b_3, double b_5, double Z, double rho_double_com)
 {
 	//l的反算公式(代入1975)
-	return ((1 - (b_1 - b_5 * pow(Z,2)) * pow(Z,2)) * Z * rho_double_com);
+	return ((1 - (b_3 - b_5 * pow(Z,2)) * pow(Z,2)) * Z * rho_double_com);
 }
 
 //反算B,l用到的公式
@@ -90,7 +90,7 @@ double b_3_1975(double B_f)
 
 double b_4_1975(double B_f)
 {
-	return (0.25 + (0.161612 + 0.005617 * pow(cos(B_f),2)) * pow(cos * (B_f),2));
+	return (0.25 + (0.161612 + 0.005617 * pow(cos(B_f),2)) * pow(cos(B_f),2));
 }
 
 double b_5_1975(double B_f)
@@ -195,7 +195,7 @@ double a_0_K(double B)
 
 double a_4_K(double B)
 {
-	return ((0.25 + 0.002 52 * pow(cos(B), 2)) * pow(cos(B), 2) - 0.041 66);
+	return ((0.25 + 0.00252 * pow(cos(B), 2)) * pow(cos(B), 2) - 0.04166);
 }
 
 double a_6_K(double B)
