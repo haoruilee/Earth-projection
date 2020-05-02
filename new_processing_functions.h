@@ -25,7 +25,7 @@ double forward_x_1975(double B_double_com, double rho_double_com, double a_0, do
 double forward_y_1975(double l, double a_3, double a_5, double B)
 {
 	//y的正算公式(代入1975国际椭球参数后)
-	return ( (1+(a_3+a_5*pow(l,2))*pow(l,2))*l*N*cos(B) )
+	return ( (1+(a_3+a_5*pow(l,2))*pow(l,2))*l*N*cos(B));
 }
 
 //正算x,y所用函数
