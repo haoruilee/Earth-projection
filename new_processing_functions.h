@@ -104,9 +104,20 @@ double B_f_1975(double beta, double rho_double_com)
 	return(beta + (50221746 + (293622 + (2350 + 22 * cos(beta) * cos(beta)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) * rho_double_com);
 }
 
+double beta_1975(double x, double rho)
+{
+	return (x * rho / 6367558.4969);
+}
+
+/*
 double N_f_1975(double B_f, double a)//////a目前不知道传入什么值
 {
 	return (a * pow((1 - pow(2.71828, 2) * pow(sin(B_f), 2)), -0.5));
+}
+*/
+double N_f_1975(double B_f)
+{
+	return (6399698.902 - (21562.267 - (108.973 - 0.612 * pow(cos(B_f), 2)) * pow(cos(B_f), 2)) * pow(cos(B_f), 2));
 }
 ////////////////////克氏椭球///////////////
 //K
