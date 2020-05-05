@@ -98,10 +98,10 @@ double b_5_1975(double B_f)
 	return (0.2 - (0.16667 - 0.00878 * pow(cos(B_f),2)) * pow(cos(B_f),2));
 }
 
-double B_f_1975(double beta, double B)
+double B_f_1975(double beta, double rho_double_com)
 {
-	return (beta - 2.518829807 * 0.001 * sin(2 * B) + 2.643546 * 0.000001 * sin(4 * B) - 3.452 * 0.000000001 * sin(6 * B) + 5 * pow(0.1, 12) * sin(8 * B));
-
+	//return (beta - 2.518829807 * 0.001 * sin(2 * B) + 2.643546 * 0.000001 * sin(4 * B) - 3.452 * 0.000000001 * sin(6 * B) + 5 * pow(0.1, 12) * sin(8 * B));
+	return(beta + (50221746 + (293622 + (2350 + 22 * cos(beta) * cos(beta)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) * rho_double_com);
 }
 
 double N_f_1975(double B_f, double a)//////a目前不知道传入什么值
@@ -129,7 +129,8 @@ double L_k(double L_0, double l)
 //K反算所用常数
 double B_f_K(double beta, double rho_double_com)
 {
-	return (beta + (50221746 + (293622 + (2350 + 22 * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) * rho_double_com);
+	//return (beta + (50221746 + (293622 + (2350 + 22 * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) * rho_double_com);
+	return(beta + (50221746 + (293622 + (2350 + 22 * cos(beta) * cos(beta)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) * rho_double_com);
 }
 
 double beta_K(double x, double rho)
