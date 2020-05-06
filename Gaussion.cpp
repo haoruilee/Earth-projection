@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 #include<cmath>
 #include <math.h>
+#include <iostream>
 using namespace std;
 #define Pi 3.14159
 
@@ -328,7 +329,16 @@ void outarray_BL()
 int main()
 {outarray_BL();
 
-int flag=0;
+cout << "Chosse K or 1975: 1:1975, 0: K" << endl;
+int flag = 0;
+cin >> flag;
+while (flag != 0 && flag != 1)
+{
+	cout<<"Wrong input! Please only input 0 or 1!"<<endl;
+	cin >> flag;
+}
+
+//int flag=0;
 
 //////flag==1 1975    flag==0  kʽ 
 if(flag)
