@@ -260,7 +260,7 @@ double a_5_K(double B)
 void outarray_BL()
 {
 	ifstream inf;
-    inf.open("123.txt", ifstream::in);	
+    inf.open("data.txt", ifstream::in);	
     int cnt = 3;          
     string line;   
     //int i = 0;
@@ -352,9 +352,13 @@ for (int i=0;i<5;i++)
 	y[i]=forward_y_1975(l,a_3,a_5,B,N);
 
 	}
+	cout<<"---------------1975正算结果----------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"第"<<i+1<<"个点  x ="<<x[i]<<"     y=   "<<y[i]<<endl;
+	}
 //1975反算 
 
-	for (int i=0;i<2;i++)
+	for (int i=0;i<5;i++)
 	{
 	double beta=beta_1975(read_x[i]);
 	double B_f=B_f_1975(beta,rho_double_com);
@@ -367,9 +371,10 @@ for (int i=0;i<5;i++)
 	f_B[i]=backward_B_1975(B_f,b_4,Z,b_2,rho_double_com);
  	f_L[i]=backward_l_1975(b_3,b_5,Z,rho_double_com); 
 	}
-//	for (int i=0;i<2;i++)
-//	{cout<<"B   ==="<<f_B[i]<<"     L====   "<<f_L[i]<<endl;
-//	}
+	cout<<"---------------1975反算结果-------------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"第"<<i+1<<"个点     B="<<f_B[i]<<"     L=   "<<f_L[i]<<endl;
+	}
 	} 
 	
 	////	K式 
@@ -393,14 +398,14 @@ for (int i=0;i<5;i++)
 	y[i]=forward_y_1975(l,a_3,a_5,B,N);
 
 	}
+	cout<<"---------------K式正算结果----------------"<<endl; 
 	for (int i=0;i<5;i++)
-	{cout<<"x  == "<<x[i]<<"     y= =="<<y[i]<<endl;
+	{cout<<"第"<<i+1<<"个点 x ="<<x[i]<<"     y=   "<<y[i]<<endl;
 	}
-	
 	
 //  K式 反算 
 
-	for (int i=0;i<2;i++)
+	for (int i=0;i<5;i++)
 	{
 	/////////参数 
 	double beta=beta_K(read_x[i]);
@@ -416,8 +421,9 @@ for (int i=0;i<5;i++)
 	f_B[i]=backward_B_1975(B_f,b_4,Z,b_2,rho_double_com);
  	f_L[i]=backward_l_1975(b_3,b_5,Z,rho_double_com); 
 	}
-	for (int i=0;i<2;i++)
-	{cout<<"B   ==="<<f_B[i]<<"     L====   "<<f_L[i]<<endl;
+	cout<<"---------------K式反算结果-------------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"第"<<i+1<<"个点     B="<<f_B[i]<<"     L=   "<<f_L[i]<<endl;
 	}
 	} 
 	 
