@@ -4,37 +4,45 @@
 using namespace std;
 #define Pi 3.14159
 
-
+///¾­¶È 
 double longitude_h[1000];
 double longitude_m[1000];
 double longitude_s[1000];
-
+///Î³¶È 
 double latitude_h[1000]; 
 double latitude_m[1000]; 
 double latitude_s[1000];
+///¶ÁÈëxy 
 double read_x[100];
 double read_y[100];
+///ÕıËãµÃxy 
 double x[100];
 double y[100]; 
+///·´ËãµÄBL 
 double f_B[100];
 double f_L[100]; 
-//void outarray_XY();
+
 void outarray_BL();
 double rho_double_com=206265;
 double L_0=111;
+
+//ÕıËã¹«Ê½
+
 double forward_x_1975(double B_double_com, double rho_double_com, double a_0, double a_4, double a_6, double l, double  N, double B)
-{
+{   //xµÄÕıËã¹«Ê½(´úÈë1975¹ú¼ÊÍÖÇò²ÎÊıºó)
 //	cout<<6367452.1328 * B_double_com / rho_double_com<<"   "<<(a_0 - (0.5 + (a_4 + a_6 * pow(l,2)) *pow(l,2))* pow(l,2) * N) * cos(B) * sin(B)<<endl;
 	return ((6367452.1328 * B_double_com / rho_double_com) - (a_0 - (0.5 + (a_4 + a_6 * pow(l,2)) *pow(l,2))* pow(l,2) * N) * cos(B) * sin(B));
 }
 
 double forward_y_1975(double l, double a_3, double a_5, double B,double N)
 {
-	//yçš„æ­£ç®—å…¬å¼(ä»£å…¥1975å›½é™…æ¤­çƒå‚æ•°å)
+	//yµÄÕıËã¹«Ê½(´úÈë1975¹ú¼ÊÍÖÇò²ÎÊıºó)
 	return ( (1+(a_3+a_5*pow(l,2))*pow(l,2))*l*N*cos(B) ); 
 }
 
-//æ­£ç®—x,yæ‰€ç”¨å‡½æ•°
+
+
+//ÕıËãx,yËùÓÃº¯Êı
 double l_1975(double L)
 {
 }
@@ -68,20 +76,25 @@ double a_5_1975(double B)
 	return (0.00878 - (0.1702 - 0.20382 * pow(cos(B),2)) * pow(cos(B),2));
 }
 
-//åç®—å…¬å¼
+
+
+//·´Ëã¹«Ê½
 double backward_B_1975(double B_f, double b_4, double Z, double b_2, double rho_double_com)
 {
-	//Bçš„åç®—å…¬å¼(ä»£å…¥1975)
-	return (B_f -(1 - (b_4 -0.147*pow(Z,2) )*pow(Z,2) )*pow(Z,2)*b_2*rho_double_com);
+	//BµÄ·´Ëã¹«Ê½(´úÈë1975)
+
+	return ((B_f - (1 - (b_4 - 0.147 * pow(Z, 2)) * pow(Z, 2)) * pow(Z, 2) * b_2 )*rho_double_com);
 }
 
 double backward_l_1975(double b_3, double b_5, double Z, double rho_double_com)
 {
-	//lçš„åç®—å…¬å¼(ä»£å…¥1975)
+	//lµÄ·´Ëã¹«Ê½(´úÈë1975)
 	return ((1 - (b_3 - b_5 * pow(Z,2)) * pow(Z,2)) * Z * rho_double_com);
 }
 
-//åç®—B,lç”¨åˆ°çš„å…¬å¼
+
+
+//·´ËãB,lÓÃµ½µÄ¹«Ê½
 double Z_1975(double y, double N_f, double B_f)
 {
 	return ((y) / (N_f * cos(B_f)));
@@ -107,21 +120,37 @@ double b_5_1975(double B_f)
 	return (0.2 - (0.16667 - 0.00878 * pow(cos(B_f),2)) * pow(cos(B_f),2));
 }
 
-double B_f_1975(double beta, double B)
+double B_f_1975(double beta, double rho_double_com)
+
+{double a=50221746 + (293622 + (2350 + 22 * cos(beta) * cos(beta)) * pow(cos(beta), 2)) * pow(cos(beta), 2);
+
+
+	return(beta + (50221746 + (293622 + (2350 + 22 * cos(beta) * cos(beta)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) );
+
+}
+double beta_1975(double x)
+
 {
-	return (beta - 2.518829807 * 0.001 * sin(2 * B) + 2.643546 * 0.000001 * sin(4 * B) - 3.452 * 0.000000001 * sin(6 * B) + 5 * pow(0.1, 12) * sin(8 * B));
+
+	return (x  / 6367558.4969);
 
 }
 
-double N_f_1975(double B_f, double a)//////aç›®å‰ä¸çŸ¥é“ä¼ å…¥ä»€ä¹ˆå€¼
+
+double N_f_1975(double B_f)
+
 {
-	return (a * pow((1 - pow(2.71828, 2) * pow(sin(B_f), 2)), -0.5));
+
+	return (6399698.902 - (21562.267 - (108.973 - 0.612 * pow(cos(B_f), 2)) * pow(cos(B_f), 2)) * pow(cos(B_f), 2));
+
 }
-////////////////////å…‹æ°æ¤­çƒ///////////////
+
+////////////////////¿ËÊÏÍÖÇò///////////////
+
 //K
-
 double backward_B_K(double B_f, double Z, double b_4, double b_2, double rho_double_com)
 {
+//	cout<<"Öµ      "<<B_f - (1 - (b_4 - 0.12 * pow(Z, 2)) * pow(Z, 2)) * pow(Z, 2) * b_2 <<endl;
 	return (B_f - (1 - (b_4 - 0.12 * pow(Z, 2)) * pow(Z, 2)) * pow(Z, 2) * b_2 * rho_double_com);
 }
 
@@ -135,15 +164,16 @@ double L_k(double L_0, double l)
 	return (L_0 + l);
 }
 
-//Kåç®—æ‰€ç”¨å¸¸æ•°
-double B_f_K(double beta, double rho_double_com)
+
+//K·´ËãËùÓÃ³£Êı
+double B_f_K(double beta)
 {
-	return (beta + (50221746 + (293622 + (2350 + 22 * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) * rho_double_com);
+	return (beta + ((50221746 + (293622 + (2350 + 22 * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(cos(beta), 2)) * pow(0.1, 10) * sin(beta) * cos(beta) ));
 }
 
-double beta_K(double x, double rho)
+double beta_K(double x)
 {
-	return (x * rho / 6367558.4969);
+	return (x  / 6367558.4969);
 }
 
 double Z_K(double y, double N_f, double B_f)
@@ -176,22 +206,27 @@ double b_5_K(double B_f)
 	return(0.2 - (0.1667 - 0.0088 * pow(cos(B_f), 2)) * pow(cos(B_f), 2));
 }
 
-//////////////////////////æ­£ç®—å¼€å§‹
-//å’Œ1975å‡ ä¹ä¸€æ ·
+
+
+//////////////////////////ÕıËã¿ªÊ¼
+
+//ºÍ1975¼¸ºõÒ»Ñù
+
 
 double forward_x_K(double B_double_com, double rho_double_com, double a_0, double a_4, double a_6, double l, double  N, double B)
 {
-	//xçš„æ­£ç®—å…¬å¼(ä»£å…¥Kå‚æ•°å)
+	//xµÄÕıËã¹«Ê½(´úÈëK²ÎÊıºó)
 	return ((6367558.4969 * B_double_com / rho_double_com) - (a_0 - (0.5 + (a_4 + a_6 * pow(l, 2)) * pow(l, 2)) * pow(l, 2) * N) * cos(B) * sin(B));
 }
 
 double forward_y_K(double l, double a_3, double a_5, double B,double N)
 {
-	//yçš„æ­£ç®—å…¬å¼(ä»£å…¥Kå‚æ•°å)
+	//yµÄÕıËã¹«Ê½(´úÈëK²ÎÊıºó)
 	return ((1 + (a_3 + a_5 * pow(l, 2)) * pow(l, 2)) * l * N * cos(B));
 }
 
-//æ­£ç®—x,yæ‰€ç”¨å‡½æ•°
+
+//ÕıËãx,yËùÓÃº¯Êı
 double N_K(double B)
 {
 	return (6399698.902 - (21562.267 - (108.996 - 0.603 * pow(cos(B), 2)) * pow(B, 2)) * pow(B, 2));
@@ -225,7 +260,7 @@ double a_5_K(double B)
 void outarray_BL()
 {
 	ifstream inf;
-    inf.open("123.txt", ifstream::in);	
+    inf.open("data.txt", ifstream::in);	
     int cnt = 3;          
     string line;   
     //int i = 0;
@@ -293,11 +328,15 @@ void outarray_BL()
 int main()
 {outarray_BL();
 
+int flag=0;
+
+//////flag==1 1975    flag==0  kÊ½ 
+if(flag)
+{ 
 //1975ÕıËã 
 double L,l;
 for (int i=0;i<5;i++)
 	{double B_double_com=3600*latitude_h[i]+60*latitude_m[i];
-	//cout<<"B_double_com"<<B_double_com;
 	
 	double B=latitude_h[i];
 	L=longitude_h[i];
@@ -309,24 +348,85 @@ for (int i=0;i<5;i++)
 	double a_5=a_5_1975(B);
 	double a_6=a_6_1975(B);
 	double N=N_1975(B);
-	cout<<"l= "<<l<<"   a_3 ="<<a_3<<"  a_5 "<<a_5<<"  B = "<<B<<"  N== "<<N<<endl; 
 	x[i]=forward_x_1975(B_double_com, rho_double_com,a_0,a_4,a_6, l, N,B);
 	y[i]=forward_y_1975(l,a_3,a_5,B,N);
 
 	}
+	cout<<"---------------1975ÕıËã½á¹û----------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"µÚ"<<i+1<<"¸öµã  x ="<<x[i]<<"     y=   "<<y[i]<<endl;
+	}
 //1975·´Ëã 
+
 	for (int i=0;i<5;i++)
 	{
-	 
-	double B_f_1975= ;
-	double N_f_1975=N_f_1975(B_f_1975,a);
-	double Z_1975=Z_1975(read_y[i],N_f_1975,B_f_1975) ;
-	double b_2=b_2_1975(B_f_1975);
-	double b_3=b_3_1975(B_f_1975);
-	double b_4=b_4_1975(B_f_1975);
-	double b_5=b_5_1975(B_f_1975);
+	double beta=beta_1975(read_x[i]);
+	double B_f=B_f_1975(beta,rho_double_com);
+	double N_f=N_f_1975(B_f);
+	double Z=Z_1975(read_y[i],N_f,B_f) ;
+	double b_2=b_2_1975(B_f);
+	double b_3=b_3_1975(B_f);
+	double b_4=b_4_1975(B_f);
+	double b_5=b_5_1975(B_f);
+	f_B[i]=backward_B_1975(B_f,b_4,Z,b_2,rho_double_com);
+ 	f_L[i]=backward_l_1975(b_3,b_5,Z,rho_double_com); 
+	}
+	cout<<"---------------1975·´Ëã½á¹û-------------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"µÚ"<<i+1<<"¸öµã     B="<<f_B[i]<<"     L=   "<<f_L[i]<<endl;
+	}
+	} 
+	
+	////	KÊ½ 
+	else
+	{double L,l;
+	///  kÊ½ÕıËã 
+for (int i=0;i<5;i++)
+	{double B_double_com=3600*latitude_h[i]+60*latitude_m[i];
+	
+	double B=latitude_h[i];
+	L=longitude_h[i];
+	l=((L-L_0)*3600+60*longitude_m[i])/rho_double_com;
+	B=B*Pi/180;
+	double a_0=a_0_K(B);
+	double a_3=a_3_K(B);
+	double a_4=a_4_K(B);
+	double a_5=a_5_K(B);
+	double a_6=a_6_K(B);
+	double N=N_K(B);
+	x[i]=forward_x_1975(B_double_com, rho_double_com,a_0,a_4,a_6, l, N,B);
+	y[i]=forward_y_1975(l,a_3,a_5,B,N);
+
+	}
+	cout<<"---------------KÊ½ÕıËã½á¹û----------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"µÚ"<<i+1<<"¸öµã x ="<<x[i]<<"     y=   "<<y[i]<<endl;
 	}
 	
+//  KÊ½ ·´Ëã 
+
+	for (int i=0;i<5;i++)
+	{
+	/////////²ÎÊı 
+	double beta=beta_K(read_x[i]);
+	double B_f=B_f_K(beta);
+	double N_f=N_f_K(B_f);
+	double Z=Z_K(read_y[i],N_f,B_f) ;
+	double b_2=b_2_K(B_f);
+	double b_3=b_3_K(B_f);
+	double b_4=b_4_K(B_f);
+	double b_5=b_5_K(B_f);
+
+
+	f_B[i]=backward_B_1975(B_f,b_4,Z,b_2,rho_double_com);
+ 	f_L[i]=backward_l_1975(b_3,b_5,Z,rho_double_com); 
+	}
+	cout<<"---------------KÊ½·´Ëã½á¹û-------------------"<<endl; 
+	for (int i=0;i<5;i++)
+	{cout<<"µÚ"<<i+1<<"¸öµã     B="<<f_B[i]<<"     L=   "<<f_L[i]<<endl;
+	}
+	} 
+	 
  } 
 
 
