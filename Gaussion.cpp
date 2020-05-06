@@ -2,6 +2,7 @@
 #include<cmath>
 #include <math.h>
 #include <iostream>
+#include<fstream>
 using namespace std;
 #define Pi 3.14159
 
