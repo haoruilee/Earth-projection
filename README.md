@@ -14,7 +14,7 @@ You can use .sln to create the file (only for vs2010+)
 - [x] Gaussion.exe: Final excute file
 - [x] points.txt: Ten data points
 
-[Project](https://github.com/users/haoruilee/projects/2)
+[Project](https://github.com/users/haoruilee/projects/2) (Finished)
 
 
 ## Contributers
