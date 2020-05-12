@@ -5,7 +5,7 @@
 
 ## How to use
 
-You can use .sln to create the file (only for vs2010+)
+You can run the .exe  file to calculate data.txt
 
 ## How it established
 
