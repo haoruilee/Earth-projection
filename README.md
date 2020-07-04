@@ -4,7 +4,7 @@
 -------
 
 ## How to use
-
+- All the functions are at functions.h, and the main program is Gaussion.cpp.
 You can run the .exe  file to calculate data.txt
 
 ## How it established
